@@ -20,12 +20,11 @@
      (e/listen! :keydown
                 (fn [event]
                   (let [evt (e/raw-event event)]
-                    (.log js/console evt)
                     (and (.-ctrlKey evt)
                          (= (.-keyCode evt) key-code)
                          (open)))))))
 
-(def tmplates (templates/introspector-templates))
+(def templates (templates/introspector-templates))
 
 (defn ^:export open
   "Open Introspector window"
