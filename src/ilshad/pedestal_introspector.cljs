@@ -1,8 +1,7 @@
 (ns ilshad.pedestal-introspector
   (:require [domina :as dom]
             [domina.events :as e]
-            ;[io.pedestal.app.renderer.push.templates :as t]
-            )
+            [io.pedestal.app.render.push.templates :as t])
   (:require-macros [ilshad.pedestal-introspector.templates :as templates]))
 
 (def monitored-app)
