@@ -10,10 +10,10 @@
   [app]
   (set! monitored-app app))
 
-(defn shortcut!
-  "Create shortcut to open Introspector"
+(defn keybind!
+  "Create keyboard shortcut to open Introspector"
   ([]
-     (shortcut! 73))
+     (keybind! 73))
   ([key-code]
      (e/listen! :keydown
                 (fn [event]
@@ -27,13 +27,11 @@
 (defn ^:export open
   "Open Introspector window"
   []
-  (let [window (popup-window)
-        document (.-document window)
-        head (.-head document)
-        body (.-body document)]
-    (dom/append! head (dom/html-to-dom (:title templates)))
-    (dom/append! head (dom/html-to-dom (:style templates)))
-    (dom/append! body (dom/html-to-dom (:main templates)))))
+  (let [document (.-document (popup-window))
+        [fields template-fn] ((:main templates))]
+    (dom/append! (.-head document) (dom/html-to-dom (:title templates)))
+    (dom/append! (.-head document) (dom/html-to-dom (:style templates)))
+    (dom/append! (.-body document) (template-fn {}))))
 
 (defn ^:export log
   "Print app into JavaScript console log"

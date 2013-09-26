@@ -4,4 +4,4 @@
 (defmacro introspector-templates []
   {:title (t/render (t/tnodes "index.html" "title"))
    :style (t/render (t/tnodes "index.html" "style"))
-   :main (t/render (t/tnodes "index.html" "main"))})
+   :main (t/dtfn (t/tnodes "index.html" "main"))})
