@@ -1,5 +1,7 @@
 (ns ilshad.pedestal-introspector
-  (:require [domina.events :as e]))
+  (:require [domina :as dom]
+            [domina.events :as e])
+  (:require-macros [ilshad.pedestal-introspector.templates :as t]))
 
 (def monitored-app)
 
@@ -20,11 +22,18 @@
                          (= (.-keyCode evt) key-code)
                          (open)))))))
 
+(def templates (t/introspector-templates))
+
 (defn ^:export open
   "Open Introspector window"
   []
-  (let [window (popup-window)]
-    (.log js/console window)))
+  (let [window (popup-window)
+        document (.-document window)
+        head (.-head document)
+        body (.-body document)]
+    (dom/append! head (dom/html-to-dom (:title templates)))
+    (dom/append! head (dom/html-to-dom (:style templates)))
+    (dom/append! body (dom/html-to-dom (:main templates)))))
 
 (defn ^:export log
   "Print app into JavaScript console log"
