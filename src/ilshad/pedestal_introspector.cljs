@@ -1,7 +1,9 @@
 (ns ilshad.pedestal-introspector
   (:require [domina :as dom]
-            [domina.events :as e])
-  (:require-macros [ilshad.pedestal-introspector.templates :as t]))
+            [domina.events :as e]
+            ;[io.pedestal.app.renderer.push.templates :as t]
+            )
+  (:require-macros [ilshad.pedestal-introspector.templates :as templates]))
 
 (def monitored-app)
 
@@ -11,24 +13,25 @@
   (set! monitored-app app))
 
 (defn keybind!
-  "Create keyboard shortcut to open Introspector"
+  "Create keyboard shortcut to open Introspector window. Default: Ctrl+I."
   ([]
      (keybind! 73))
   ([key-code]
      (e/listen! :keydown
                 (fn [event]
                   (let [evt (e/raw-event event)]
-                    (and (not (.-ctrlKey evt))
+                    (.log js/console evt)
+                    (and (.-ctrlKey evt)
                          (= (.-keyCode evt) key-code)
                          (open)))))))
 
-(def templates (t/introspector-templates))
+(def tmplates (templates/introspector-templates))
 
 (defn ^:export open
   "Open Introspector window"
   []
   (let [document (.-document (popup-window))
-        [fields template-fn] ((:main templates))]
+        [template-fileds template-fn] ((:main templates))]
     (dom/append! (.-head document) (dom/html-to-dom (:title templates)))
     (dom/append! (.-head document) (dom/html-to-dom (:style templates)))
     (dom/append! (.-body document) (template-fn {}))))
