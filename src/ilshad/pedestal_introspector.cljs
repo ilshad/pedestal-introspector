@@ -16,9 +16,9 @@
      (e/listen! :keydown
                 (fn [event]
                   (let [evt (e/raw-event event)]
-                    (when-not (.-ctrlKey evt)
-                      (when (= (.-keyCode evt) key-code)
-                        (open))))))))
+                    (and (not (.-ctrlKey evt))
+                         (= (.-keyCode evt) key-code)
+                         (open)))))))
 
 (defn ^:export open
   "Open Introspector window"
