@@ -1,4 +1,5 @@
-(ns ilshad.pedestal-introspector)
+(ns ilshad.pedestal-introspector
+  (:require [domina.events :as e]))
 
 (def monitored-app)
 
@@ -7,12 +8,28 @@
   [app]
   (set! monitored-app app))
 
+(defn shortcut!
+  "Create shortcut to open Introspector"
+  ([]
+     (shortcut! 73))
+  ([key-code]
+     (e/listen! :keydown
+                (fn [event]
+                  (let [evt (e/raw-event event)]
+                    (when-not (.-ctrlKey evt)
+                      (when (= (.-keyCode evt) key-code)
+                        (open))))))))
+
 (defn ^:export open
   "Open Introspector window"
   []
-  nil)
+  (let [window (popup-window)]
+    (.log js/console window)))
 
 (defn ^:export log
   "Print app into JavaScript console log"
   []
   (.log js/console monitored-app))
+
+(defn- popup-window []
+  (.open js/window "" "introspector" "height=600,width=600"))
