@@ -14,7 +14,7 @@
 
 (defn bind-key
   "Create keyboard shortcut to open Introspector pop-up window.
-   Default: Ctrl+i."
+   Default: Ctrl+I."
   ([]
      (bind-key 73))
   ([key-code]

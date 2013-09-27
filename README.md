@@ -2,7 +2,7 @@
 
 This library provides tool for visualization application state while
 developing ClojureScript-based projects with
-[Pedestal](http://pedestal.io). In browser, press `Ctrl+i`
+[Pedestal](http://pedestal.io). In browser, press `Ctrl+I`
 and see current data model in popup window.
 
 ## Current state
@@ -16,7 +16,7 @@ Currently, it visualizes:
 Leiningen coordinates:
 
 ```clojure
-[ilshad/pedestal-introspector "0.1.0-SNAPSHOT"]
+[ilshad/pedestal-introspector "0.1.0"]
 ```
 
 ## Usage
@@ -55,7 +55,7 @@ For example:
   ])
 ```
 
-By default, keybinding is `Ctrl+i`. Press it in browser while working
+By default, keybinding is `Ctrl+I`. Press it in browser while working
 with Development Aspect and see curent data model.
 
 ## Alternative ways
