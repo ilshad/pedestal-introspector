@@ -13,7 +13,8 @@
   (set! monitored-app app))
 
 (defn bind-key
-  "Create keyboard shortcut to open Introspector pop-up window. Default: Ctrl+i."
+  "Create keyboard shortcut to open Introspector pop-up window.
+   Default: Ctrl+i."
   ([]
      (bind-key 73))
   ([key-code]

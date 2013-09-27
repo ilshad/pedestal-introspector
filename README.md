@@ -1,12 +1,13 @@
 # pedestal-introspector
 
-This library provides tool for visualize application state while
-developing ClojureScript-based projects with Pedestal. Press
-`Ctrl+i` in browser and see current data model in popup window.
+This library provides tool for visualization application state while
+developing ClojureScript-based projects with
+[Pedestal](http://http://pedestal.io). In browser, press `Ctrl+i`
+and see current data model in popup window.
 
 ## Current state
 
-Currently, this tool visualizes:
+Currently, it visualizes:
 
  1. Data model
 
@@ -15,10 +16,8 @@ Currently, this tool visualizes:
 Leiningen coordinates:
 
 ```clojure
-[ilshad/pedestal-introspector "x.x.x"]
+[ilshad/pedestal-introspector "0.1.0-SNAPSHOT"]
 ```
-
-!NOTE: yet not released.
 
 ## Usage
 
