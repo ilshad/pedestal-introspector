@@ -3,18 +3,26 @@
     <title template="title">Pedestal Introspector</title>
     <style template="style">
       body {
-	  background-color:#fff;
-          color:#555;
-	  margin:0;
-	  padding:5px;
-	  font-size:100%;
-	  font-family:arial;
+	  background-color: #eee;
+          color: #555;
+	  margin: 0;
+	  padding: 0;
+	  font-size: 100%;
+	  font-family: arial;
+      }
+      h1 {
+	  background-color: #555;
+          color: #fff;
+          padding: 3 10px;
+      }
+      #data-model {
       }
     </style>
   </head>
   <body>
-    <div template="main">
-      <em>foo bar baaz</em>
+    <div template="content">
+      <h1>Data Model</h1>
+      <div field="id:data-model-id"></div>
     </div>
   </body>
 </html>

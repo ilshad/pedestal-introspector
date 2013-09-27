@@ -1,7 +1,8 @@
 (ns ilshad.pedestal-introspector
-  (:require [domina :as dom]
+  (:require [domina :as d]
             [domina.events :as e]
-            [io.pedestal.app.render.push.templates :as t])
+            [io.pedestal.app.render.push.templates :as t]
+            [io.pedestal.app.render.push.cljs-formatter :as formatter])
   (:require-macros [ilshad.pedestal-introspector.templates :as templates]))
 
 (def monitored-app)
@@ -25,19 +26,31 @@
 
 (def templates (templates/introspector-templates))
 
+(def xoox)
+
 (defn ^:export open
   "Open Introspector window"
   []
-  (let [document (.-document (popup-window))
-        [template-fileds template-fn] ((:main templates))]
-    (dom/append! (.-head document) (dom/html-to-dom (:title templates)))
-    (dom/append! (.-head document) (dom/html-to-dom (:style templates)))
-    (dom/append! (.-body document) (template-fn {}))))
+  (let [document (popup)
+        [template-fields template-fn] ((:content templates))]
+    (d/append! (.-head document) (d/html-to-dom (:title templates)))
+    (d/append! (.-head document) (d/html-to-dom (:style templates)))
+    (d/append! (.-body document) (template-fn))
+    (let [state (get-in monitored-app [:app :state])
+          data-model (:data-model @state)
+          data-model-html (formatter/html data-model)
+          data-model-id (:data-model-id template-fields)]
+      )))
+;[{:id G__17, :type :attr, :attr-name "id"}]
+(comment let [container (d/by-id "data-model")
+          ]
+      (d/append! container data-model-node))
 
 (defn ^:export log
   "Print app into JavaScript console log"
   []
   (.log js/console monitored-app))
 
-(defn- popup-window []
-  (.open js/window "" "introspector" "height=600,width=600"))
+(defn- popup []
+  (.-document
+   (.open js/window "" "introspector" "height=600,width=600")))
