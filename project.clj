@@ -1,4 +1,4 @@
-(defproject ilshad/pedestal-introspector "0.1.0"
+(defproject ilshad/pedestal-introspector "0.2.0-SNAPSHOT"
   :description "Visualize application state for Pedestal."
   :url "http://github.com/ilshad/pedestal-introspector"
   :license {:name "Eclipse Public License"
