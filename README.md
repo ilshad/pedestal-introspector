@@ -2,7 +2,7 @@
 
 This library provides tool for visualization application state while
 developing ClojureScript-based projects with
-[Pedestal](http://http://pedestal.io). In browser, press `Ctrl+i`
+[Pedestal](http://pedestal.io). In browser, press `Ctrl+i`
 and see current data model in popup window.
 
 ## Current state
@@ -24,7 +24,7 @@ Leiningen coordinates:
 **Step One:** Create introspector with app in `start.cljs`:
 
 ```clojure
-(ns orgto-client.start
+(ns myapp.start
   (:require ...
             [ilshad.pedestal-introspector :as introspector]
 			...))
@@ -38,7 +38,7 @@ Leiningen coordinates:
 For example:
 
 ```clojure
-(ns orgto-client.rendering
+(ns myapp.rendering
   (:require ...
             [ilshad.pedestal-introspector :as introspector]
 			...))
