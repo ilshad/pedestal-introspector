@@ -13,7 +13,7 @@
   (set! monitored-app app))
 
 (defn bind-key
-  "Create keyboard shortcut to open Introspector window. Default: Ctrl+I."
+  "Create keyboard shortcut to open Introspector pop-up window. Default: Ctrl+i."
   ([]
      (bind-key 73))
   ([key-code]
@@ -25,7 +25,7 @@
                          (open)))))))
 
 (defn ^:export open
-  "Open Introspector window"
+  "Open Introspector pop-up window"
   []
   (let [doc (popup)
         data-model-id (gensym)]
@@ -50,8 +50,3 @@
         container (.getElementById doc data-model-id)]
     (d/append! container node)
     (formatter/arrange! node container)))
-
-(defn ^:export log
-  "Print app into JavaScript console log"
-  []
-  (.log js/console monitored-app))

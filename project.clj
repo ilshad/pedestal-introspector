@@ -1,5 +1,5 @@
 (defproject ilshad/pedestal-introspector "0.1.0-SNAPSHOT"
-  :description "Introspection Pedestal App's state for developers"
+  :description "Visualize application state for Pedestal."
   :url "http://github.com/ilshad/pedestal-introspector"
   :license {:name "Eclipse Public License"
             :url "http://www.eclipse.org/legal/epl-v10.html"}
