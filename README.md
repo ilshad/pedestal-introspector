@@ -3,7 +3,9 @@
 This library provides tool for visualization application state while
 developing ClojureScript-based projects with
 [Pedestal](http://pedestal.io). In browser, press `Ctrl+I`
-and see current data model in popup window.
+and see current data model in popup window:
+
+![Screenshot](screenshot.png)
 
 ## Current state
 
