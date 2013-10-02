@@ -71,7 +71,7 @@ Or call `(ilshad.pedestal-introspector/open)` somewhere in ClojureScript.
 
 ## Known issues
 
-Google Chrome browser is only supported currently (version 0.1.0).
+Google Chrome Browser is only supported currently (in version 0.1.0).
 
 ## License
 
