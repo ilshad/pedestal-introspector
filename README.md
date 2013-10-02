@@ -69,6 +69,10 @@ in JavaScript console:
 
 Or call `(ilshad.pedestal-introspector/open)` somewhere in ClojureScript.
 
+## Known issues
+
+Google Chrome browser is only supported currently (version 0.1.0).
+
 ## License
 
 Copyright © 2013 [Ilshad Khabibullin](http://ilshad.com).
