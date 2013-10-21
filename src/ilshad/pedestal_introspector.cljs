@@ -6,11 +6,13 @@
   (:require-macros [ilshad.pedestal-introspector.templates :as templates]))
 
 (def monitored-app)
+(def monitored-model-path)
 
 (defn create
   "Create Introspector for app"
-  [app]
-  (set! monitored-app app))
+  [app & {:keys [model-path] :or {model-path []}}]
+  (set! monitored-app app)
+  (set! monitored-model-path model-path))
 
 (defn bind-key
   "Create keyboard shortcut to open Introspector pop-up window.
@@ -29,9 +31,9 @@
   "Open Introspector pop-up window"
   []
   (let [doc (popup)
-        data-model-id (gensym)]
-    (render-layout doc data-model-id)
-    (render-data-model doc data-model-id)))
+        model-id (gensym)]
+    (render-layout doc model-id)
+    (render-model doc model-id)))
 
 (defn- popup []
   (.-document
@@ -39,15 +41,18 @@
 
 (def templates (templates/introspector-templates))
 
-(defn- render-layout [doc data-model-id]
+(defn- render-layout [doc model-id]
   (let [[_ template-fn] ((:content templates))]
     (d/append! (.-head doc) (d/html-to-dom (:title templates)))
     (d/append! (.-head doc) (d/html-to-dom (:style templates)))
-    (d/append! (.-body doc) (template-fn {:data-model-id data-model-id}))))
+    (d/append! (.-body doc) (template-fn {:data-model-id model-id}))))
 
-(defn- render-data-model [doc data-model-id]
+(defn- get-model [state]
+  (get-in (:data-model @state) monitored-model-path))
+
+(defn- render-model [doc model-id]
   (let [state (get-in monitored-app [:app :state])
-        node (d/single-node (formatter/html (:data-model @state)))
-        container (.getElementById doc data-model-id)]
+        node (d/single-node (formatter/html (get-model state)))
+        container (.getElementById doc model-id)]
     (d/append! container node)
     (formatter/arrange! node container)))

@@ -3,7 +3,7 @@
 This library provides tool for visualization application state while
 developing ClojureScript-based projects with
 [Pedestal](http://pedestal.io). In browser, press `Ctrl+I`
-and see current data model in popup window:
+and see current information model in popup window:
 
 ![Screenshot](screenshot.png)
 
@@ -11,7 +11,7 @@ and see current data model in popup window:
 
 Currently, it visualizes:
 
- 1. Data model
+ 1. Information model
 
 ## Installation
 
@@ -58,7 +58,7 @@ For example:
 ```
 
 By default, keybinding is `Ctrl+I`. Press it in browser while working
-with Development Aspect and see curent data model.
+with Development Aspect and see curent information model.
 
 ## Alternative ways
 
