@@ -33,7 +33,8 @@
   (let [doc (popup)
         model-id (gensym)]
     (render-layout doc model-id)
-    (render-model doc model-id)))
+    (render-model doc model-id)
+    (render-description doc)))
 
 (defn- popup []
   (.-document
@@ -56,3 +57,10 @@
         container (.getElementById doc model-id)]
     (d/append! container node)
     (formatter/arrange! node container)))
+
+(defn- render-description [doc]
+  (when monitored-model-path
+    (let [container (.getElementById doc "introspector-description")
+          path-node (d/single-node (formatter/html monitored-model-path))]
+      (d/append! container (d/single-node "Only"))
+      (d/append! container path-node))))

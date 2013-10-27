@@ -26,12 +26,18 @@
       .closer {
 	  color: #ccc;
       }
+      .introspector-description {
+      }
     </style>
   </head>
   <body>
     <div template="content">
       <h1>Data Model</h1>
+      <div id="introspector-description" class="introspector-description"></div>
       <div field="id:data-model-id"></div>
+    </div>
+    <div template="description">
+      Only: <span field="content:model-path-only"></span>
     </div>
   </body>
 </html>
