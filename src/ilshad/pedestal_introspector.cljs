@@ -6,14 +6,14 @@
   (:require-macros [ilshad.pedestal-introspector.templates :as templates]))
 
 (def monitored-app)
-(def monitored-model-path)
+(def monitored-model-path-only)
 
 (defn create
   "Create Introspector for app"
-  [app & {:keys [model-path]
-          :or {model-path []}}]
+  [app & {:keys [model-path-only]
+          :or {model-path-only []}}]
   (set! monitored-app app)
-  (set! monitored-model-path model-path))
+  (set! monitored-model-path-only model-path-only))
 
 (defn bind-key
   "Create keyboard shortcut to open Introspector pop-up window.
@@ -50,7 +50,7 @@
                                           :info (info)}))))
 
 (defn- get-model [state]
-  (get-in (:data-model @state) monitored-model-path))
+  (get-in (:data-model @state) monitored-model-path-only))
 
 (defn- render-model [doc model-id]
   (let [state (get-in monitored-app [:app :state])
@@ -59,13 +59,13 @@
     (d/append! container node)
     (formatter/arrange! node container)))
 
-(defn- model-path-info [s]
-  (when (< 0 (count monitored-model-path))
+(defn- model-path-only-info [s]
+  (when (< 0 (count monitored-model-path-only))
     (str s
-         "<div class='info'>Monitored model path: <span class='path'>"
-         monitored-model-path
+         "<div class='info'>Model path only: <span class='path'>"
+         monitored-model-path-only
          "</span></div>")))
 
 (defn- info []
   (-> ""
-      model-path-info))
+      model-path-only-info))
