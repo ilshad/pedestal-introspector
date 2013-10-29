@@ -11,7 +11,9 @@
       }
       h1 {
           color: #90bee5;
+          color: #4b8ba1;
           padding: 5px 0 0 10px;
+          margin: 0;
       }
       .keyword {
 	  color: purple;
@@ -26,18 +28,22 @@
       .closer {
 	  color: #ccc;
       }
-      .introspector-description {
+      .info {
+          margin: 5px;
+          padding: 5px;
+          background-color: #4b8ba1;
+          color: #ffffff;
+      }
+      .info .path {
+          color: yellow;
       }
     </style>
   </head>
   <body>
     <div template="content">
       <h1>Data Model</h1>
-      <div id="introspector-description" class="introspector-description"></div>
+      <div field="content:info"></div>
       <div field="id:data-model-id"></div>
-    </div>
-    <div template="description">
-      Only: <span field="content:model-path-only"></span>
     </div>
   </body>
 </html>

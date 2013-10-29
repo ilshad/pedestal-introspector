@@ -10,7 +10,8 @@
 
 (defn create
   "Create Introspector for app"
-  [app & {:keys [model-path] :or {model-path []}}]
+  [app & {:keys [model-path]
+          :or {model-path []}}]
   (set! monitored-app app)
   (set! monitored-model-path model-path))
 
@@ -33,8 +34,7 @@
   (let [doc (popup)
         model-id (gensym)]
     (render-layout doc model-id)
-    (render-model doc model-id)
-    (render-description doc)))
+    (render-model doc model-id)))
 
 (defn- popup []
   (.-document
@@ -46,7 +46,8 @@
   (let [[_ template-fn] ((:content templates))]
     (d/append! (.-head doc) (d/html-to-dom (:title templates)))
     (d/append! (.-head doc) (d/html-to-dom (:style templates)))
-    (d/append! (.-body doc) (template-fn {:data-model-id model-id}))))
+    (d/append! (.-body doc) (template-fn {:data-model-id model-id
+                                          :info (info)}))))
 
 (defn- get-model [state]
   (get-in (:data-model @state) monitored-model-path))
@@ -58,9 +59,13 @@
     (d/append! container node)
     (formatter/arrange! node container)))
 
-(defn- render-description [doc]
-  (when monitored-model-path
-    (let [container (.getElementById doc "introspector-description")
-          path-node (d/single-node (formatter/html monitored-model-path))]
-      (d/append! container (d/single-node "Only"))
-      (d/append! container path-node))))
+(defn- model-path-info [s]
+  (when (< 0 (count monitored-model-path))
+    (str s
+         "<div class='info'>Monitored model path: <span class='path'>"
+         monitored-model-path
+         "</span></div>")))
+
+(defn- info []
+  (-> ""
+      model-path-info))
