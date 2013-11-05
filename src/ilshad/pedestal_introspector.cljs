@@ -10,8 +10,7 @@
 
 (defn create
   "Create Introspector for app"
-  [app & {:keys [exclude]
-          :or {exclude []}}]
+  [app & {:keys [exclude] :or {exclude []}}]
   (set! monitored-app app)
   (set! monitored-exclude exclude))
 
@@ -73,7 +72,7 @@
     s
     (str s
          "<div class='info'>Excluding: <span class='path'>"
-         monitored-exclude
+         (apply str (interpose ", " monitored-exclude))
          "</span></div>")))
 
 (defn- info []
