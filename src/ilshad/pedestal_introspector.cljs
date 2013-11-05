@@ -6,15 +6,13 @@
   (:require-macros [ilshad.pedestal-introspector.templates :as templates]))
 
 (def monitored-app)
-(def monitored-only)
 (def monitored-exclude)
 
 (defn create
   "Create Introspector for app"
-  [app & {:keys [only exclude]
-          :or {only [], exclude []}}]
+  [app & {:keys [exclude]
+          :or {exclude []}}]
   (set! monitored-app app)
-  (set! monitored-only only)
   (set! monitored-exclude exclude))
 
 (defn bind-key
@@ -58,20 +56,10 @@
       (cond (empty? nm) (dissoc m k)
             :else (assoc m k nm)))))
 
-(defn- apply-exclude [model]
-  (reduce (fn [m path] (dissoc-in m path))
-          model
-          monitored-exclude))
-
-(defn- apply-only [model]
-  (reduce (fn [m path] (get-in m path))
-          model
-          monitored-only))
-
 (defn- get-model [state]
-  (-> (:data-model @state)
-      apply-exclude
-      apply-only))
+  (reduce (fn [m path] (dissoc-in m path))
+          (:data-model @state)
+          monitored-exclude))
 
 (defn- render-model [doc model-id]
   (let [state (get-in monitored-app [:app :state])
@@ -88,15 +76,5 @@
          monitored-exclude
          "</span></div>")))
 
-(defn- only-info [s]
-  (if (empty? monitored-only)
-    s
-    (str s
-         "<div class='info'>Only: <span class='path'>"
-         monitored-only
-         "</span></div>")))
-
 (defn- info []
-  (-> ""
-      exclude-info
-      only-info))
+  (-> "" exclude-info))
