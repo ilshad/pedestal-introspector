@@ -6,14 +6,19 @@
   (:require-macros [ilshad.pedestal-introspector.templates :as templates]))
 
 (def monitored-app)
-(def monitored-model-path-only)
+(def monitored-path-only)
+(def monitored-path-exclude)
 
 (defn create
   "Create Introspector for app"
-  [app & {:keys [model-path-only]
-          :or {model-path-only []}}]
+  [app & {:keys [path-only path-exclude]
+
+          :or {path-only []
+               path-exclude []}}]
+
   (set! monitored-app app)
-  (set! monitored-model-path-only model-path-only))
+  (set! monitored-path-only path-only)
+  (set! monitored-path-exclude path-exclude))
 
 (defn bind-key
   "Create keyboard shortcut to open Introspector pop-up window.
@@ -46,11 +51,20 @@
   (let [[_ template-fn] ((:content templates))]
     (d/append! (.-head doc) (d/html-to-dom (:title templates)))
     (d/append! (.-head doc) (d/html-to-dom (:style templates)))
-    (d/append! (.-body doc) (template-fn {:data-model-id model-id
-                                          :info (info)}))))
+    (d/append! (.-body doc) (template-fn {:data-model-id model-id :info (info)}))))
+
+(defn- dissoc-in
+  [m [k & ks]]
+  (if-not ks
+    (dissoc m k)
+    (let [nm (dissoc-in (m k) ks)]
+      (cond (empty? nm) (dissoc m k)
+            :else (assoc m k nm)))))
 
 (defn- get-model [state]
-  (get-in (:data-model @state) monitored-model-path-only))
+  (-> (:data-model @state)
+      (get-in monitored-path-only)
+      (dissoc-in monitored-path-exclude)))
 
 (defn- render-model [doc model-id]
   (let [state (get-in monitored-app [:app :state])
@@ -59,13 +73,23 @@
     (d/append! container node)
     (formatter/arrange! node container)))
 
-(defn- model-path-only-info [s]
-  (when (< 0 (count monitored-model-path-only))
+(defn- path-only-info [s]
+  (if (empty? monitored-path-only)
+    s
     (str s
-         "<div class='info'>Model path only: <span class='path'>"
-         monitored-model-path-only
+         "<div class='info'>Only: <span class='path'>"
+         monitored-path-only
+         "</span></div>")))
+
+(defn- path-exclude-info [s]
+  (if (empty? monitored-path-exclude)
+    s
+    (str s
+         "<div class='info'>Excluding: <span class='path'>"
+         monitored-path-exclude
          "</span></div>")))
 
 (defn- info []
   (-> ""
-      model-path-only-info))
+      path-only-info
+      path-exclude-info))
