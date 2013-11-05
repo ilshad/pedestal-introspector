@@ -56,7 +56,7 @@
             :else (assoc m k nm)))))
 
 (defn- get-model [state]
-  (reduce (fn [m path] (dissoc-in m path))
+  (reduce dissoc-in
           (:data-model @state)
           monitored-exclude))
 

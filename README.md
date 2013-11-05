@@ -18,7 +18,7 @@ Currently, it visualizes:
 Leiningen coordinates:
 
 ```clojure
-[ilshad/pedestal-introspector "0.2.0-SNAPSHOT"]
+[ilshad/pedestal-introspector "0.2.0"]
 ```
 
 ## Usage
@@ -67,11 +67,9 @@ window. It can be annoying. Use keyword argument `exclude` with vector
 of vectors - paths in the data model:
 
 ```clojure
-(defn ^:export main []
-  (let [app (create-app (render-core/render-config))]
-    (introspector/create app :exclude [[:stream :contexts]
-                                       [:stream :indexes]
-                                       [:contexts-menu]])
+(introspector/create app :exclude [[:stream :contexts]
+                                   [:stream :indexes]
+                                   [:contexts-menu]])
 ```
 
 ## Other ways to open popup
