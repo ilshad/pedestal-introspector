@@ -11,14 +11,14 @@ and see current information model in popup window:
 
 Currently, it visualizes:
 
- 1. Information model
+ 1. Data model
 
 ## Installation
 
 Leiningen coordinates:
 
 ```clojure
-[ilshad/pedestal-introspector "0.1.0"]
+[ilshad/pedestal-introspector "0.2.0-SNAPSHOT"]
 ```
 
 ## Usage
@@ -63,8 +63,8 @@ with Development Aspect and see curent information model.
 ## Options
 
 _(added in 0.2.0)_ Big trees are rendering too slow in the introspector's
-window, and it can be annoying. Use keyword argument `exclude` with vector
-of vectors (paths in data model):
+window. It can be annoying. Use keyword argument `exclude` with vector
+of vectors - paths in the data model:
 
 ```clojure
 (defn ^:export main []
@@ -85,7 +85,7 @@ Or call `(ilshad.pedestal-introspector/open)` somewhere in ClojureScript.
 
 ## Known issues
 
-Google Chrome Browser is only supported currently.
+There are CSS trubles in Firefox. Google Chrome is only supported currently.
 
 ## License
 
