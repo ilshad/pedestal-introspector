@@ -58,10 +58,20 @@
       (cond (empty? nm) (dissoc m k)
             :else (assoc m k nm)))))
 
+(defn- apply-exclude [model]
+  (reduce (fn [m path] (dissoc-in m path))
+          model
+          monitored-exclude))
+
+(defn- apply-only [model]
+  (reduce (fn [m path] (get-in m path))
+          model
+          monitored-only))
+
 (defn- get-model [state]
   (-> (:data-model @state)
-      (dissoc-in monitored-exclude)
-      (get-in monitored-only)))
+      apply-exclude
+      apply-only))
 
 (defn- render-model [doc model-id]
   (let [state (get-in monitored-app [:app :state])
