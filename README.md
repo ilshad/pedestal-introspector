@@ -60,7 +60,21 @@ For example:
 By default, keybinding is `Ctrl+I`. Press it in browser while working
 with Development Aspect and see curent information model.
 
-## Alternative ways
+## Options
+
+_(added in 0.2.0)_ Big trees are rendering too slow in the introspector's
+window, and it can be annoying. Use keyword argument `exclude` with vector
+of vectors (paths in data model):
+
+```clojure
+(defn ^:export main []
+  (let [app (create-app (render-core/render-config))]
+    (introspector/create app :exclude [[:stream :contexts]
+                                       [:stream :indexes]
+                                       [:contexts-menu]])
+```
+
+## Other ways to open popup
 
 Instead of keyboard shortcut, you can call popup window manually. Type
 in JavaScript console:
@@ -71,7 +85,7 @@ Or call `(ilshad.pedestal-introspector/open)` somewhere in ClojureScript.
 
 ## Known issues
 
-Google Chrome Browser is only supported currently (in version 0.1.0).
+Google Chrome Browser is only supported currently.
 
 ## License
 
