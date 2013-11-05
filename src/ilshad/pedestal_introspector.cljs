@@ -6,19 +6,16 @@
   (:require-macros [ilshad.pedestal-introspector.templates :as templates]))
 
 (def monitored-app)
-(def monitored-path-only)
-(def monitored-path-exclude)
+(def monitored-only)
+(def monitored-exclude)
 
 (defn create
   "Create Introspector for app"
-  [app & {:keys [path-only path-exclude]
-
-          :or {path-only []
-               path-exclude []}}]
-
+  [app & {:keys [only exclude]
+          :or {only [], exclude []}}]
   (set! monitored-app app)
-  (set! monitored-path-only path-only)
-  (set! monitored-path-exclude path-exclude))
+  (set! monitored-only only)
+  (set! monitored-exclude exclude))
 
 (defn bind-key
   "Create keyboard shortcut to open Introspector pop-up window.
@@ -63,8 +60,8 @@
 
 (defn- get-model [state]
   (-> (:data-model @state)
-      (get-in monitored-path-only)
-      (dissoc-in monitored-path-exclude)))
+      (dissoc-in monitored-exclude)
+      (get-in monitored-only)))
 
 (defn- render-model [doc model-id]
   (let [state (get-in monitored-app [:app :state])
@@ -73,23 +70,23 @@
     (d/append! container node)
     (formatter/arrange! node container)))
 
-(defn- path-only-info [s]
-  (if (empty? monitored-path-only)
-    s
-    (str s
-         "<div class='info'>Only: <span class='path'>"
-         monitored-path-only
-         "</span></div>")))
-
-(defn- path-exclude-info [s]
-  (if (empty? monitored-path-exclude)
+(defn- exclude-info [s]
+  (if (empty? monitored-exclude)
     s
     (str s
          "<div class='info'>Excluding: <span class='path'>"
-         monitored-path-exclude
+         monitored-exclude
+         "</span></div>")))
+
+(defn- only-info [s]
+  (if (empty? monitored-only)
+    s
+    (str s
+         "<div class='info'>Only: <span class='path'>"
+         monitored-only
          "</span></div>")))
 
 (defn- info []
   (-> ""
-      path-only-info
-      path-exclude-info))
+      exclude-info
+      only-info))
