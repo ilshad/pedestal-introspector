@@ -83,7 +83,7 @@ Or call `(ilshad.pedestal-introspector/open)` somewhere in ClojureScript.
 
 ## Known issues
 
-There are CSS trubles in Firefox. Google Chrome is only supported currently.
+There are CSS bugs in Firefox. Google Chrome is only supported currently.
 
 ## License
 
