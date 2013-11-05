@@ -62,7 +62,7 @@ with Development Aspect and see curent information model.
 
 ## Options
 
-_(added in 0.2.0)_ Big trees are rendering too slow in the introspector's
+_(added in 0.2.0)_ Big trees' rendering are too slow in the introspector's
 window. It can be annoying. Use keyword argument `exclude` with vector
 of vectors - paths in the data model:
 
